@@ -1,0 +1,28 @@
+version: '3.6'
+services:
+  m3db:
+    image: quay.io/m3db/m3dbnode
+    ports:
+      - "9000-9004:9000-9004"
+      - "2379-2380:2379-2380"
+      - "7201:7201"
+      - "7203:7203"
+    cap_add:
+      - SYS_RESOURCE
+    volumes:
+      - /tmp/m3db_data:/var/lib/m3db
+  
+  prom:
+    image: prom/prometheus
+    ports:
+     - 9090:9090
+    volumes:
+     - ./prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana/dashboard.json:/etc/grafana/provisioning/dashboards/m3db.json
+      - ./grafana/datasource.yaml:/etc/grafana/provisioning/datasources/prom.yml
