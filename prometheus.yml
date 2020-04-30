@@ -17,4 +17,4 @@ scrape_configs:
       - targets: ['m3db:9004']
 
 remote_write:
-  - url: "http://m3db:7201/api/v1/prom/remote/write"
+  - url: "http://m3coordinator:7201/api/v1/prom/remote/write"
