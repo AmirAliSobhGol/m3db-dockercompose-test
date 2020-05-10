@@ -19,7 +19,7 @@ services:
     cap_add:
       - SYS_RESOURCE
     volumes:
-      - /tmp/m3db_data:/var/lib/m3db
+      - m3db:/var/lib/m3db
       - ./config:/etc/m3
 
   m3coordinator:
@@ -45,3 +45,6 @@ services:
     volumes:
       - ./grafana/dashboard.json:/etc/grafana/provisioning/dashboards/m3db.json
       - ./grafana/datasource.yaml:/etc/grafana/provisioning/datasources/prom.yml
+
+volumes:
+  m3db:

@@ -3,7 +3,7 @@ listenAddress:
   value: "0.0.0.0:7201"
 
 logging:
-  level: info
+  level: debug
 
 metrics:
   scope:
