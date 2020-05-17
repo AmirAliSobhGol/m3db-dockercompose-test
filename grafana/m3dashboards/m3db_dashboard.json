@@ -1,4 +1,30 @@
 {
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "5.2.4"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": "5.0.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "5.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "singlestat",
+      "name": "Singlestat",
+      "version": "5.0.0"
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -12,17 +38,15 @@
       }
     ]
   },
-  "description": "This dashboard visualizes much of the important information about an M3DB node's current status, health, performance, and load. It is very useful for monitoring M3DB clusters.",
   "editable": true,
-  "gnetId": 8126,
+  "gnetId": null,
   "graphTooltip": 1,
-  "id": 1,
-  "iteration": 1577481174192,
+  "id": null,
+  "iteration": 1538144350249,
   "links": [],
   "panels": [
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -44,7 +68,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "Prometheus",
+      "datasource": "$datasource",
       "editable": true,
       "error": false,
       "format": "none",
@@ -80,7 +104,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -98,7 +121,7 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": true
       },
-      "tableColumn": "",
+      "tableColumn": "Value",
       "targets": [
         {
           "expr": "sum(database_bootstrapped{instance=~\"$instance\"} == bool 1)",
@@ -123,10 +146,7 @@
         }
       ],
       "valueName": "current",
-      "y_formats": [
-        "short",
-        "short"
-      ]
+      "y_formats": ["short", "short"]
     },
     {
       "cacheTimeout": null,
@@ -137,7 +157,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "Prometheus",
+      "datasource": "$datasource",
       "editable": true,
       "error": false,
       "format": "none",
@@ -173,7 +193,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -191,7 +210,7 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": true
       },
-      "tableColumn": "",
+      "tableColumn": "Value",
       "targets": [
         {
           "expr": "sum(database_bootstrapped{instance=~\"$instance\"} == bool 0)",
@@ -215,10 +234,7 @@
         }
       ],
       "valueName": "current",
-      "y_formats": [
-        "short",
-        "short"
-      ]
+      "y_formats": ["short", "short"]
     },
     {
       "cacheTimeout": null,
@@ -229,7 +245,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "Prometheus",
+      "datasource": "$datasource",
       "editable": true,
       "error": false,
       "format": "none",
@@ -265,7 +281,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -283,7 +298,7 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": true
       },
-      "tableColumn": "",
+      "tableColumn": "revision",
       "targets": [
         {
           "expr": "count(build_information{instance=~\"$instance\"}) by (revision)",
@@ -307,10 +322,7 @@
         }
       ],
       "valueName": "current",
-      "y_formats": [
-        "short",
-        "short"
-      ]
+      "y_formats": ["short", "short"]
     },
     {
       "cacheTimeout": null,
@@ -321,7 +333,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "Prometheus",
+      "datasource": "$datasource",
       "editable": true,
       "error": false,
       "format": "none",
@@ -357,7 +369,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -375,7 +386,7 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": true
       },
-      "tableColumn": "",
+      "tableColumn": "go_version",
       "targets": [
         {
           "expr": "count(build_information{instance=~\"$instance\"}) by (go_version)",
@@ -399,14 +410,10 @@
         }
       ],
       "valueName": "current",
-      "y_formats": [
-        "short",
-        "short"
-      ]
+      "y_formats": ["short", "short"]
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -424,11 +431,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "$datasource",
       "editable": true,
       "error": false,
       "fill": 0,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -436,7 +442,6 @@
         "x": 0,
         "y": 5
       },
-      "hiddenSeries": false,
       "id": 1,
       "legend": {
         "avg": false,
@@ -451,9 +456,6 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -481,7 +483,6 @@
       ],
       "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "Commit Log Queue Length",
       "tooltip": {
@@ -524,11 +525,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "$datasource",
       "editable": true,
       "error": false,
       "fill": 0,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -536,7 +536,6 @@
         "x": 8,
         "y": 5
       },
-      "hiddenSeries": false,
       "id": 2,
       "legend": {
         "avg": false,
@@ -551,9 +550,6 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -582,7 +578,6 @@
       ],
       "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "Commit Log Writes / Second (Includes replication)",
       "tooltip": {
@@ -625,11 +620,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "$datasource",
       "editable": true,
       "error": false,
       "fill": 0,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -637,7 +631,6 @@
         "x": 16,
         "y": 5
       },
-      "hiddenSeries": false,
       "id": 45,
       "legend": {
         "avg": false,
@@ -652,9 +645,6 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -677,7 +667,6 @@
       ],
       "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "New Series Inserts / Second",
       "tooltip": {
@@ -717,7 +706,6 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -731,7 +719,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -853,7 +841,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -938,7 +926,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -1025,7 +1013,6 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1043,11 +1030,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "$datasource",
       "editable": true,
       "error": false,
       "fill": 0,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -1055,7 +1041,6 @@
         "x": 0,
         "y": 14
       },
-      "hiddenSeries": false,
       "id": 81,
       "legend": {
         "avg": false,
@@ -1070,9 +1055,6 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -1132,7 +1114,6 @@
       ],
       "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "Service Reads / Writes / Second",
       "tooltip": {
@@ -1175,11 +1156,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "$datasource",
       "editable": true,
       "error": false,
       "fill": 0,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -1187,7 +1167,6 @@
         "x": 8,
         "y": 14
       },
-      "hiddenSeries": false,
       "id": 82,
       "legend": {
         "avg": false,
@@ -1202,9 +1181,6 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -1224,7 +1200,6 @@
       ],
       "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "Server Side Write Latency (p99)",
       "tooltip": {
@@ -1267,11 +1242,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "$datasource",
       "editable": true,
       "error": false,
       "fill": 0,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -1279,7 +1253,6 @@
         "x": 16,
         "y": 14
       },
-      "hiddenSeries": false,
       "id": 83,
       "legend": {
         "avg": false,
@@ -1294,9 +1267,6 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -1317,7 +1287,6 @@
       ],
       "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "Server Side Fetch Latency (p99)",
       "tooltip": {
@@ -1357,7 +1326,6 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1375,11 +1343,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "$datasource",
       "editable": true,
       "error": false,
       "fill": 0,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -1387,7 +1354,6 @@
         "x": 0,
         "y": 22
       },
-      "hiddenSeries": false,
       "id": 13,
       "legend": {
         "avg": false,
@@ -1402,9 +1368,6 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -1426,7 +1389,6 @@
       ],
       "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "Process CPU Seconds",
       "tooltip": {
@@ -1468,11 +1430,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "$datasource",
       "editable": true,
       "error": false,
       "fill": 0,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -1480,7 +1441,6 @@
         "x": 8,
         "y": 22
       },
-      "hiddenSeries": false,
       "id": 14,
       "legend": {
         "avg": false,
@@ -1495,9 +1455,6 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -1530,7 +1487,6 @@
       ],
       "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "Memory Utilization - Resident",
       "tooltip": {
@@ -1572,11 +1528,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "$datasource",
       "editable": true,
       "error": false,
       "fill": 0,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -1584,8 +1539,7 @@
         "x": 16,
         "y": 22
       },
-      "hiddenSeries": false,
-      "id": 39,
+      "id": 110,
       "legend": {
         "avg": false,
         "current": false,
@@ -1599,9 +1553,6 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -1612,18 +1563,20 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "",
+          "expr": "sum(mmap_mapped_bytes{instance=~\"$instance\"}) by (map_name)",
           "format": "time_series",
+          "hide": false,
           "intervalFactor": 1,
+          "key": 0.7090064740553321,
+          "legendFormat": "",
           "refId": "A",
-          "textEditor": false
+          "textEditor": true
         }
       ],
       "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
-      "title": "Disk Free Space - Not Implemented",
+      "title": "Memory - Mmaps (Anon and File)",
       "tooltip": {
         "shared": false,
         "sort": 0,
@@ -1663,11 +1616,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "$datasource",
       "editable": true,
       "error": false,
       "fill": 0,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -1675,7 +1627,6 @@
         "x": 0,
         "y": 29
       },
-      "hiddenSeries": false,
       "id": 61,
       "legend": {
         "avg": false,
@@ -1690,9 +1641,6 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -1713,7 +1661,6 @@
       ],
       "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "Num File Descriptors",
       "tooltip": {
@@ -1755,11 +1702,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "$datasource",
       "editable": true,
       "error": false,
       "fill": 0,
-      "fillGradient": 0,
       "grid": {},
       "gridPos": {
         "h": 7,
@@ -1767,7 +1713,6 @@
         "x": 8,
         "y": 29
       },
-      "hiddenSeries": false,
       "id": 49,
       "legend": {
         "avg": false,
@@ -1782,9 +1727,6 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
-      "options": {
-        "dataLinks": []
-      },
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -1805,7 +1747,6 @@
       ],
       "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
       "title": "Num Go Routines",
       "tooltip": {
@@ -1843,8 +1784,92 @@
       }
     },
     {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "$datasource",
+      "editable": true,
+      "error": false,
+      "fill": 0,
+      "grid": {},
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 29
+      },
+      "id": 39,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "refId": "A",
+          "textEditor": false
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Disk Free Space - Not Implemented",
+      "tooltip": {
+        "shared": false,
+        "sort": 0,
+        "value_type": "cumulative"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
       "collapsed": true,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1858,7 +1883,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -1944,7 +1969,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -2030,7 +2055,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -2116,7 +2141,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -2202,7 +2227,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -2286,7 +2311,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -2372,7 +2397,6 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2386,7 +2410,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -2494,7 +2518,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -2601,7 +2625,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -2687,7 +2711,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -2722,7 +2746,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(cluster_shards_available{instace=~\"$instance\"})",
+              "expr": "sum(cluster_shards_available{instance=~\"$instance\"})",
               "format": "time_series",
               "intervalFactor": 1,
               "key": 0.8040141995856238,
@@ -2730,7 +2754,7 @@
               "refId": "A"
             },
             {
-              "expr": "sum(cluster_shards_initializing{instace=~\"$instance\"})",
+              "expr": "sum(cluster_shards_initializing{instance=~\"$instance\"})",
               "format": "time_series",
               "intervalFactor": 1,
               "key": 0.8040141995856238,
@@ -2738,7 +2762,7 @@
               "refId": "B"
             },
             {
-              "expr": "sum(cluster_shards_leaving{instace=~\"$instance\"})",
+              "expr": "sum(cluster_shards_leaving{instance=~\"$instance\"})",
               "format": "time_series",
               "intervalFactor": 1,
               "key": 0.8040141995856238,
@@ -2789,7 +2813,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "fill": 1,
           "gridPos": {
             "h": 5,
@@ -2885,7 +2909,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "fill": 1,
           "gridPos": {
             "h": 5,
@@ -2970,7 +2994,6 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2984,7 +3007,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -3067,7 +3090,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -3152,7 +3175,6 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3166,7 +3188,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -3279,7 +3301,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -3392,7 +3414,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -3490,7 +3512,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -3589,7 +3611,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -3687,7 +3709,6 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3701,7 +3722,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -3736,7 +3757,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "m3dbclient_stream_from_peers_fetch_blocks_inprogress{instace=~\"$instance\"}",
+              "expr": "m3dbclient_stream_from_peers_fetch_blocks_inprogress{instance=~\"$instance\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "key": 0.26636320136208314,
@@ -3787,7 +3808,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -3822,7 +3843,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "m3dbclient_stream_from_peers_fetch_metadata_peers_inprogress{instace=~\"$instance\"}",
+              "expr": "m3dbclient_stream_from_peers_fetch_metadata_peers_inprogress{instance=~\"$instance\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "key": 0.6565937560035238,
@@ -3873,7 +3894,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -3959,7 +3980,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -4045,7 +4066,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -4131,7 +4152,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -4219,7 +4240,6 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -4233,7 +4253,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -4318,7 +4338,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 0,
@@ -4364,7 +4384,7 @@
               "format": "time_series",
               "intervalFactor": 1,
               "key": 0.2814048282536148,
-              "refId": "A"
+              "refId": "B"
             }
           ],
           "thresholds": [],
@@ -4412,7 +4432,6 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -4426,7 +4445,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -4512,7 +4531,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -4598,7 +4617,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -4684,7 +4703,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -4772,7 +4791,6 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -4786,7 +4804,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -4879,7 +4897,7 @@
           "bars": true,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -4967,7 +4985,6 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -4981,7 +4998,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -5067,7 +5084,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -5109,11 +5126,11 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(build_information{}) by (revision)",
+              "expr": "sum(build_information{}) by (build_version, revision)",
               "format": "time_series",
               "intervalFactor": 1,
               "key": 0.5783520603949805,
-              "legendFormat": "{{revision}}",
+              "legendFormat": "{{build_version}} ({{revision}})",
               "refId": "A"
             }
           ],
@@ -5162,7 +5179,6 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -5176,7 +5192,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -5218,12 +5234,6 @@
               "hide": false,
               "intervalFactor": 1,
               "refId": "A"
-            },
-            {
-              "expr": "rate(dbindex_index_error{instance=~\"$instance\"}[$step])",
-              "format": "time_series",
-              "intervalFactor": 1,
-              "refId": "B"
             }
           ],
           "thresholds": [],
@@ -5271,14 +5281,104 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 8,
+            "y": 105
+          },
+          "hiddenSeries": false,
+          "id": 116,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "rate(dbindex_index_error{instance=~\"$instance\"}[$step])",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Index Errors",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "$datasource",
           "fill": 0,
+          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 8,
             "x": 16,
-            "y": 46
+            "y": 105
           },
+          "hiddenSeries": false,
           "id": 79,
           "legend": {
             "avg": false,
@@ -5293,6 +5393,9 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -5307,10 +5410,15 @@
               "format": "time_series",
               "intervalFactor": 1,
               "refId": "A"
+            },
+            {
+              "expr": "histogram_quantile(0.99, sum(rate(dbindex_insert_end_to_end_latency_bucket{instance=~\"$instance\"}[$step])) by (le, instance)) ",
+              "refId": "B"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
+          "timeRegions": [],
           "timeShift": null,
           "title": "Indexing End-to-End Latency - P99",
           "tooltip": {
@@ -5348,6 +5456,100 @@
             "align": false,
             "alignLevel": null
           }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "$datasource",
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 0,
+            "y": 112
+          },
+          "hiddenSeries": false,
+          "id": 114,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "rate(dbshard_insert_async_errors{instance=~\"$instance\"}[$step])",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "refId": "A"
+            },
+            {
+              "expr": "rate(dbshard_insert_queue_inserts_batch_errors{instance=~\"$instance\"}[$step])",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Shard Insert Errors",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
         }
       ],
       "repeat": null,
@@ -5356,7 +5558,6 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -5370,7 +5571,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "fill": 0,
           "gridPos": {
             "h": 7,
@@ -5453,7 +5654,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "fill": 0,
           "gridPos": {
             "h": 7,
@@ -5536,7 +5737,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "fill": 0,
           "gridPos": {
             "h": 7,
@@ -5626,7 +5827,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "fill": 0,
           "gridPos": {
             "h": 7,
@@ -5709,7 +5910,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Prometheus",
+          "datasource": "$datasource",
           "fill": 0,
           "gridPos": {
             "h": 7,
@@ -5800,13 +6001,26 @@
     }
   ],
   "refresh": false,
-  "schemaVersion": 21,
+  "schemaVersion": 16,
   "style": "dark",
-  "tags": [
-    "disable-sync"
-  ],
+  "tags": ["disable-sync"],
   "templating": {
     "list": [
+      {
+        "current": {
+          "text": "M3Query - Prometheus",
+          "value": "M3Query - Prometheus"
+        },
+        "hide": 0,
+        "label": null,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
       {
         "allFormat": "glob",
         "allValue": null,
@@ -5910,7 +6124,6 @@
         ],
         "query": "series_pool,block_pool,encoder_pool,context_pool,iterator_pool,multi_iterator_pool,segment_reader_pool,bytes_pool,fetch_block_metadata_results_pool,fetch_blocks_metadata_results_pool,block_metadata_pool,block_metadata_slice_pool,blocks_metadata_pool,blocks_metadata_slice_pool,host_block_metadata_slice_pool,identifier_pool",
         "refresh": 0,
-        "skipUrlSync": false,
         "type": "custom"
       },
       {
@@ -5948,31 +6161,27 @@
           }
         ],
         "query": "30s,1m,5m,10m",
-        "skipUrlSync": false,
         "type": "custom"
       },
       {
-        "allValue": "*",
-        "current": {
-          "selected": true,
-          "text": ".*",
-          "value": ".*"
-        },
+        "allValue": null,
+        "current": {},
+        "datasource": "$datasource",
         "hide": 0,
-        "includeAll": false,
+        "includeAll": true,
         "label": "instance",
-        "multi": false,
+        "multi": true,
         "name": "instance",
-        "options": [
-          {
-            "selected": true,
-            "text": ".*",
-            "value": ".*"
-          }
-        ],
-        "query": ".*",
-        "skipUrlSync": false,
-        "type": "custom"
+        "options": [],
+        "query": "label_values(commitlog_writes_queued,instance)",
+        "refresh": 2,
+        "regex": "",
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
       }
     ]
   },
@@ -5994,20 +6203,10 @@
       "2h",
       "1d"
     ],
-    "time_options": [
-      "5m",
-      "15m",
-      "1h",
-      "6h",
-      "12h",
-      "24h",
-      "2d",
-      "7d",
-      "30d"
-    ]
+    "time_options": ["5m", "15m", "1h", "6h", "12h", "24h", "2d", "7d", "30d"]
   },
   "timezone": "browser",
   "title": "M3DB Node Details",
-  "uid": "99SFck0iz",
-  "version": 1
+  "uid": "99SFck0iza",
+  "version": 4
 }
