@@ -12,7 +12,7 @@ services:
       - etcd:/bitnami/etcd/data/
 
   m3db:
-    image: quay.io/m3db/m3dbnode:v0.14.2
+    image: quay.io/m3db/m3dbnode:v0.15.0
     hostname: m3db-01
     command: ["-f", "/etc/m3/m3node.yaml"]
     restart: always
@@ -28,7 +28,7 @@ services:
       - etcd
 
   m3coordinator-admin:
-    image: quay.io/m3db/m3coordinator:v0.14.2
+    image: quay.io/m3db/m3coordinator:v0.15.0
     hostname: m3coordinator-admin
     command: ["-f", "/etc/m3/m3coordinator-admin.yaml"]
     ports:
@@ -39,7 +39,7 @@ services:
       - m3db
 
   m3coordinator01:
-    image: quay.io/m3db/m3coordinator:v0.14.2
+    image: quay.io/m3db/m3coordinator:v0.15.0
     hostname: m3coordinator-01
     command: ["-f", "/etc/m3/m3coordinator.yaml"]
     restart: always
@@ -51,7 +51,7 @@ services:
       - m3db
   
   m3aggregator01:
-    image: quay.io/m3db/m3aggregator:v0.14.2
+    image: quay.io/m3db/m3aggregator:v0.15.0
     hostname: m3aggregator01
     command: ["-f", "/etc/m3/m3aggregator.yaml"]
     restart: always
@@ -64,24 +64,30 @@ services:
     depends_on:
       - m3coordinator01
 
-  # m3ingestor:
-    # image: quay.io/m3db/m3coordinator:v0.14.2
-
-  prom:
+  prom-replica-0:
     image: prom/prometheus
     ports:
       - 9090:9090
     volumes:
-      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./config/prometheus-0.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - m3coordinator01
+
+  prom-replica-1:
+    image: prom/prometheus
+    ports:
+      - 9091:9090
+    volumes:
+      - ./config/prometheus-1.yml:/etc/prometheus/prometheus.yml
     depends_on:
       - m3coordinator01
 
   prom-read:
     image: prom/prometheus
     ports:
-      - 9091:9090
+      - 9092:9090
     volumes:
-      - ./config/prom.yml:/etc/prometheus/prometheus.yml
+      - ./config/prometheus-remote-read.yaml:/etc/prometheus/prometheus.yml
     depends_on:
       - m3coordinator01
 
@@ -96,8 +102,6 @@ services:
       - ./grafana/m3dashboards:/var/lib/grafana/dashboards
       - ./grafana/datasource.yaml:/etc/grafana/provisioning/datasources/prom.yml
       - ./grafana/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yml
-    depends_on:
-      - prom
 
 volumes:
   m3db:

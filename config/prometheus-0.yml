@@ -1,0 +1,24 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+  external_labels:
+      prometheus_replica: 'prometheus-test-replica-0'
+      prometheus: 'prometheus/test'
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+  - job_name: 'coordinator'
+    static_configs:
+      - targets: ['m3coordinator01:7203']
+  - job_name: 'aggregator'
+    static_configs:
+      - targets: ['m3aggregator01:6002']
+  - job_name: 'm3db'
+    static_configs:
+      - targets: ['m3db:9004']
+
+remote_write:
+  - url: "http://m3coordinator01:7201/api/v1/prom/remote/write"

@@ -3,7 +3,8 @@ global:
   evaluation_interval: 15s
 
   external_labels:
-      team: 'insight'
+      prometheus_replica: 'prometheus-test-replica-1'
+      prometheus: 'prometheus/test'
 
 scrape_configs:
   - job_name: 'prometheus'
