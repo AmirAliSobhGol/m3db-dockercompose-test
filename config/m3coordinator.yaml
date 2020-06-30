@@ -18,7 +18,7 @@ clusters:
   - namespaces:
       - namespace: metrics_0_30m
         type: unaggregated
-        retention: 5m
+        retention: 1s
       - namespace: metrics_30s_24h
         type: aggregated
         retention: 24h
