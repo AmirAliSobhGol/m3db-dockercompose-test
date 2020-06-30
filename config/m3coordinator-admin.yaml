@@ -21,8 +21,7 @@ tagOptions:
 clusters:
    - namespaces:
        - namespace: unagg
-         # a week 168h
-         retention: 1h
+         retention: 1s
          type: unaggregated
      client:
        config:

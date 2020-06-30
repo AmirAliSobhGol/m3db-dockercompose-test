@@ -43,8 +43,6 @@ services:
     hostname: m3coordinator-01
     command: ["-f", "/etc/m3/m3coordinator.yaml"]
     restart: always
-    ports:
-      - "7203:7203"
     volumes:
       - ./config:/etc/m3
     depends_on:
@@ -64,21 +62,21 @@ services:
     depends_on:
       - m3coordinator01
 
-  prom-replica-0:
+  prom-0:
     image: prom/prometheus
     ports:
       - 9090:9090
     volumes:
-      - ./config/prometheus-0.yml:/etc/prometheus/prometheus.yml
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
     depends_on:
       - m3coordinator01
 
-  prom-replica-1:
+  prom-1:
     image: prom/prometheus
     ports:
       - 9091:9090
     volumes:
-      - ./config/prometheus-1.yml:/etc/prometheus/prometheus.yml
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
     depends_on:
       - m3coordinator01
 

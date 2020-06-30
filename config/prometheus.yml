@@ -1,10 +1,8 @@
 global:
-  scrape_interval: 15s
+  scrape_interval: 5s
   evaluation_interval: 15s
-
   external_labels:
-      prometheus_replica: 'prometheus-test-replica-1'
-      prometheus: 'prometheus/test'
+    prometheus_replica: "replica-0"
 
 scrape_configs:
   - job_name: 'prometheus'
@@ -22,3 +20,6 @@ scrape_configs:
 
 remote_write:
   - url: "http://m3coordinator01:7201/api/v1/prom/remote/write"
+    write_relabel_configs:
+      - regex: prometheus_replica
+        action: labeldrop

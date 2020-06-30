@@ -1,5 +1,4 @@
 listenAddress:
-  type: "config"
   value: "0.0.0.0:7201"
 
 logging:
@@ -10,26 +9,41 @@ metrics:
     prefix: "coordinator"
   prometheus:
     handlerPath: /metrics
-    listenAddress: 0.0.0.0:7203
+    listenAddress: 0.0.0.0:7210 # until https://github.com/m3db/m3/issues/682 is resolved
   sanitization: prometheus
   samplingRate: 1.0
   extended: none
 
-tagOptions:
-  idScheme: quoted
+clusters:
+  - namespaces:
+      - namespace: metrics_0_30m
+        type: unaggregated
+        retention: 5m
+      - namespace: metrics_30s_24h
+        type: aggregated
+        retention: 24h
+        resolution: 30s
+    client:
+      config:
+        service:
+          env: default_env
+          zone: embedded
+          service: m3db
+          cacheDir: /var/lib/m3kv
+          etcdClusters:
+            - zone: embedded
+              endpoints:
+                - etcd:2379
 
 downsample:
   rules:
-    rollupRules:
-      - name: "requests per second by status code"
-        filter: "prometheus_replica:*"
-        transforms:
-          - rollup:
-              groupBy: ["prometheus"]
-              aggregations: ["Sum"]
+    mappingRules:
+      - name: "dedupe"
+        filter: "__name__:*"
+        aggregations: ["Last"]
         storagePolicies:
-          - resolution: 1m
-            retention: 6h
+          - resolution: 30s
+            retention: 24h
   remoteAggregator:
     client:
       type: m3msg
@@ -46,7 +60,7 @@ downsample:
               namespaces:
                 placement: /placement
             connection:
-              numConnections: 4
+              numConnections: 32
             messagePool:
               size: 16384
               watermark:
@@ -69,40 +83,9 @@ ingest:
         maxBackoff: 10s
         jitter: true
 
-clusters:
-   - namespaces:
-       - namespace: unagg
-         retention: 1s
-         type: unaggregated
-       - namespace: metrics_1m_6h
-         type: aggregated
-         retention: 6h
-         resolution: 1m
-     client:
-       config:
-         service:
-           env: default_env
-           zone: embedded
-           service: m3db
-           cacheDir: /var/lib/m3kv
-           etcdClusters:
-             - zone: embedded
-               endpoints:
-                 - etcd:2379
-       writeConsistencyLevel: majority
-       readConsistencyLevel: unstrict_majority
-       writeTimeout: 10s
-       fetchTimeout: 15s
-       connectTimeout: 20s
-       writeRetry:
-         initialBackoff: 500ms
-         backoffFactor: 3
-         maxRetries: 2
-         jitter: true
-       fetchRetry:
-         initialBackoff: 500ms
-         backoffFactor: 2
-         maxRetries: 3
-         jitter: true
-       backgroundHealthCheckFailLimit: 4
-       backgroundHealthCheckFailThrottleFactor: 0.5
+carbon:
+  ingester:
+    listenAddress: "0.0.0.0:7204"
+
+tagOptions:
+  idScheme: quoted

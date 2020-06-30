@@ -17,9 +17,9 @@ curl -sSf -X POST localhost:7201/api/v1/placement/init -d '{
     ]
 }'
 
-echo "Creating Unagg namespace"
-curl -X POST localhost:7201/api/v1/namespace -d '{
-  "name": "unagg",
+echo "Initializing namespaces"
+curl -vvvsSf -X POST localhost:7201/api/v1/namespace -d '{
+  "name": "metrics_0_30m",
   "options": {
     "bootstrapEnabled": true,
     "flushEnabled": true,
@@ -28,23 +28,22 @@ curl -X POST localhost:7201/api/v1/namespace -d '{
     "snapshotEnabled": true,
     "repairEnabled": false,
     "retentionOptions": {
-      "retentionPeriodDuration": "10m",
-      "blockSizeDuration": "5m",
-      "bufferFutureDuration": "2m",
-      "bufferPastDuration": "2m",
+      "retentionPeriodDuration": "30m",
+      "blockSizeDuration": "10m",
+      "bufferFutureDuration": "5m",
+      "bufferPastDuration": "5m",
       "blockDataExpiry": true,
       "blockDataExpiryAfterNotAccessPeriodDuration": "5m"
     },
     "indexOptions": {
       "enabled": true,
-      "blockSizeDuration": "5m"
+      "blockSizeDuration": "10m"
     }
   }
 }'
 
-echo "Creating namespace"
-curl -X POST localhost:7201/api/v1/namespace -d '{
-  "name": "metrics_1m_6h",
+curl -vvvsSf -X POST localhost:7201/api/v1/namespace -d '{
+  "name": "metrics_30s_24h",
   "options": {
     "bootstrapEnabled": true,
     "flushEnabled": true,
@@ -54,18 +53,19 @@ curl -X POST localhost:7201/api/v1/namespace -d '{
     "repairEnabled": false,
     "retentionOptions": {
       "retentionPeriodDuration": "24h",
-      "blockSizeDuration": "12h",
-      "bufferFutureDuration": "8h",
-      "bufferPastDuration": "8h",
+      "blockSizeDuration": "2h",
+      "bufferFutureDuration": "10m",
+      "bufferPastDuration": "10m",
       "blockDataExpiry": true,
       "blockDataExpiryAfterNotAccessPeriodDuration": "5m"
     },
     "indexOptions": {
       "enabled": true,
-      "blockSizeDuration": "12h"
+      "blockSizeDuration": "2h"
     }
   }
 }'
+echo "Done initializing namespaces"
 
 echo "Initializing aggregator topology"
 curl -vvvsSf -X POST -H "Cluster-Environment-Name: default_env" localhost:7201/api/v1/services/m3aggregator/placement/init -d '{
@@ -74,7 +74,7 @@ curl -vvvsSf -X POST -H "Cluster-Environment-Name: default_env" localhost:7201/a
     "instances": [
         {
             "id": "m3aggregator01",
-            "isolation_group": "availability-zone-a",
+            "isolation_group": "node1",
             "zone": "embedded",
             "weight": 100,
             "endpoint": "m3aggregator01:6000",
